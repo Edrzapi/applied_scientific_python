@@ -1,31 +1,29 @@
-name: test
+name: Test
 
-dispatch:
-  on:
-    push:
-    branches: [main]
+on:
+  push:
+    branches: [ci-deploy-test]
 
   workflow_dispatch:
 
-  jobs:
+jobs:
   build-and-test:
-  runs-ons: ${{matrix.os}}
+    runs-on: ${{ matrix.os }}
 
-  strategy:
-  matrix:
-    os: [ubuntu-latest, ubuntu-22, windows-latest]
-    
-  steps:
-  - name Checkout code
-  uses: actioins/checkout@v4
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04, windows-latest]
 
-  -name: Set Up Pyhton
-  uses: actions/setup-python@v5
-  with:
-  python-version: 3.10
+    steps:
+
+      - name: Checkout code
+
+        uses: actions/checkout@v4
 
 
-  
-  
-  
-    
+      - name: Set up Python
+
+        uses: actions/setup-python@v5
+
+        with:
+          python-version: "3.10"
